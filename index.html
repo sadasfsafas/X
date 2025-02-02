@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>¿Quieres ser mi San Valentín?</title>
+  <script src="https://kit.fontawesome.com/4f3ce16e3e.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+  <style>
+    body {
+      position: relative;
+      margin: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(45deg, #2A0F37, #1A0A24);
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.5s ease;
+      text-align: center;
+    }
+    
+    #content {
+      padding: 20px;
+      min-width: 30%;
+      min-height: 30%;
+      backdrop-filter: blur(5px);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 30px;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      color: #fff;
+      font-size: 2.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button {
+      padding: 18px 40px;
+      font-size: 1.4rem;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 120px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    button:hover::after {
+      opacity: 1;
+    }
+
+    #yes {
+      background: linear-gradient(45deg, #ff69b4, #ff8ac5);
+      color: #fff;
+      transform: scale(1);
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+    }
+
+    #yes:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+    }
+
+    #no {
+      background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.5));
+      color: #6a1b9a;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    #no:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .mensaje {
+      animation: fadeIn 1s ease-out;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 30px 40px;
+      border-radius: 15px;
+      display: inline-block;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      margin: 20px;
+    }
+
+    .mensaje h2 {
+      font-size: 2.2rem;
+      color: #fff;
+      margin: 15px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      font-weight: 700;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fa-heart {
+      color: rgb(60, 0, 60);
+      font-size: 25px;
+      position: absolute;
+      animation: heartMove linear 1;
+      top: -10vh;
+      z-index: 0;
+    }
+
+    @keyframes heartMove {
+      0% { transform: translateY(-10vh); }
+      100% { transform: translateY(110vh); }
+    }
+
+    .svg-container {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .custom-svg {
+      width: 100%;
+      display: block;
+    }
+
+    .custom-svg * {
+      transform-box: fill-box;
+    }
+
+    .line {
+      fill: none;
+      stroke: #a08970;
+      stroke-miterlimit: 10;
+      stroke-width: 2px;
+      stroke-dasharray: 1920;
+      stroke-dashoffset: 1920;
+      animation: 3s line-draw cubic-bezier(.5,.3,.5,1) forwards;
+    }
+
+    .heart {
+      fill: #fab4b4;
+      stroke-width: 0;
+      opacity: 0;
+      transform: scale(0.5);
+      transform-origin: 50% 50%;
+    }
+
+    .heart.heart--is-large {
+      transform-origin: 25% 100%;
+      animation: 1s heart-grow 1.33s cubic-bezier(.5,.3,.1,1) forwards;
+    }
+
+    .heart.heart--is-small {
+      transform-origin: 4% 100%;
+      animation: 0.75s heart-grow 1.66s cubic-bezier(.3,.3,.2,1) forwards;
+    }
+
+    @keyframes line-draw {
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes heart-grow {
+      100% { 
+        opacity: 0.5;
+        transform: scale(1);
+      }
+    }
+
+    #backgroundMusic {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <h1>¿Quieres ser mi San Valentín?</h1>
+    <div class="buttons">
+      <button id="yes">SI</button>
+      <button id="no">NO</button>
+    </div>
+  </div>
+
+  <audio id="backgroundMusic" loop autoplay>
+    <source src="song.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+
+  <script>
+    function createHeart() {
+      const heart = document.createElement('i');
+      heart.classList.add('fa-heart', 'fas');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 300);
+
+    const yesButton = document.getElementById('yes');
+    const noButton = document.getElementById('no');
+    const backgroundMusic = document.getElementById('backgroundMusic');
+    const content = document.getElementById('content');
+
+    backgroundMusic.volume = 0.10;
+    let scaleFactor = 1;
+
+    noButton.addEventListener('click', () => {
+      scaleFactor += 8;
+      yesButton.style.transform = `scale(${scaleFactor})`;
+
+      noButton.style.transition = 'opacity 0.5s ease';
+      noButton.style.opacity = 0;
+      
+      setTimeout(() => {
+        noButton.style.display = 'none';
+      }, 500);
+    });
+
+    yesButton.addEventListener('click', () => {
+      if (backgroundMusic.duration) {
+        backgroundMusic.currentTime = backgroundMusic.duration * 0.29;
+      } else {
+        backgroundMusic.addEventListener('loadedmetadata', () => {
+          backgroundMusic.currentTime = backgroundMusic.duration * 0.29;
+        }, { once: true });
+      }
+      content.innerHTML = `
+        <div class="mensaje">
+          <h2>¡Sabía que dirías que Sí!</h2>
+          <h2>TE QUIERO MUCHO XINYU <3</h2>
+        </div>
+        <div class="svg-container">
+          <svg class="custom-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 831 509">
+            <path class="heart heart--is-small" d="M444.44,386.14c1.63-56.83,22.45-110.89,42.05-120.77,19.6-9.88,44.18.53,40.96,36.43,28.54-14.75,68.81-13.58,72.18,16.2,2.82,24.86-27.91,34.7-62.9,37.01-34.98,2.31-67.64,12.11-92.3,31.13Z"/>
+            <path class="heart heart--is-large" d="M441,401.62c-10.03-35.56-29.5-70.5-43-113s-8.18-96.55,20-98c18.22-.94,27.5,15.4,30,42,51.67-71.77,131.93-55.64,145.5-33.5,22.26,36.34-23.06,66.74-59.5,85.5-54.49,28.06-75.94,72.67-93,117Z"/>
+            <path class="line" d="M53.5,319.12c104.85-75.98,214.82-13.62,266,17,49.53,29.64,72.22,56.76,92,50,30.52-10.43-48.19-89.59-55-141-4.55-34.38,12.5-57.5,41-54s34.96,28.4,32,63c13.71-42.57,60.57-69.96,88-68,33.48,2.39,46.34,37.12,0,68-59.6,39.72-81.13,107.21-80,126-23.44-57.19-32.08-99.35-6.5-114.5,32.51-19.25,63.84,2.79,55,41,22.64-35.77,51.42-38.85,65-25,18.95,19.33-2.51,41.08-33,53-26.82,10.49-46.45,19.63-59,34,48.29-70.94,94.69-86.65,172-93,65.87-5.41,112.71,26.72,187,17"/>
+          </svg>
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>
